@@ -30,10 +30,12 @@ GoogleTextSpeaks.py -l en -s "I speak to you from outer-space" -p
 if you want to use it without holding up whatever else is happening,
 with a minimum of fuss, call via thread module from your own program:
 
-import GoogleTextSpeaks as barney /n
+import GoogleTextSpeaks as barney
+
 import thread
 
-txtraw = 'with the goo goo googly eyes' /n
+txtraw = 'with the goo goo googly eyes'
+
 thread.start_new_thread(barney.simplespeech, tuple(txtraw))
 
  I suppose you can use 'subprocess', but it takes just a tad more to launch & I saw no change.
