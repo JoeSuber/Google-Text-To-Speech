@@ -1,0 +1,93 @@
+
+Stop Stalin License:
+
+This "Stop Stalin" License is meant to both encourage open-source style
+community development AND leave the door open for people to make a buck
+or two if they just invented the Double Cheeseburger of Software. I couldn't
+find an existing license that did that and it was 'Stall'-'in' me in indecision.
+And though I agree with much of the reasoning Stallman & co give I am tired
+of the knee-jerk lefty-ness of it all. Richard Stalin gives the same speech
+over and over... Look, we all know corporations want to make money. The real
+goal should be to make them help you by creating and improving things as we go.
+There is no political solution unless you are willing to liquidate the
+kulacks Richard. Please forgive the bourgeois sensibility here:
+
+-- BEGIN LICENSE --
+An author is defined as a human individual possessing person-hood who
+makes rightful claim to some measurable, significant, positive impact on the
+creation of the specific purposeful functionality and / or documentation
+of the work a.k.a. software and associated documentation. An author
+must also desire to be identified as such.
+
+By including this document as a file within a particular project folder,
+and naming said file, "LICENSE" an author has expressed intention
+to describe the author's copyright relationship to the included files,
+perhaps forgoing rights otherwise reserved to author's of similar
+works. In said group of files, this "LICENSE" pertains only to those
+files that are to some extent, more or less, the author's rightful creative
+work to dispose of in ways determined by custom and law.
+ 
+By virtue of above the author is saying:
+
+"As author of this work,
+I license individuals to use this body of work, in whole or in part, for
+personal enjoyment and education without demand of compensation,
+with the non-exclusive proviso that this written license be reproduced
+with all copies and derivative versions of this work along with reasonably
+complete attributions of authorship in the source-work."
+"Attributed authors shall have the rights and benefits of authorship
+proportional to a reasonable interpretation of their contributions to
+the working body of code & useful documentation that has been
+developed under this license. This contribution is not for all time
+and must be relevant to a state-of-the-art but properly functioning
+version of the work. The exact method of measuring a given
+contribution is beyond the scope of this license. It is best that
+multiple authors agree on this method before any agreements
+for commercial use of the given work are concluded."
+
+"Modification of code and documentation by any individual is
+encouraged, with the proviso that attribution to the original authors,
+in good faith and so far as it is reasonable to ascertain, be accurately
+preserved. Only an author has the right to create new versions or
+"branches" of this work that are not subject to the full text of
+this license ('LICENSE' in its entirety) and then only by removal of
+complete sentences in the SPECIAL provision given below."
+
+"SPECIAL provision:
+An author reserves the right to charge non-authors who use or intend to
+use this software in a commercial enterprise a reasonable fee to be
+negotiated on a case-by-case basis. An author may protect the source
+code from further modification as part of a commercial operating
+environment by providing only executable code or obfuscating
+the source-code provided. No authors may grant corporate or
+incorporated entities, public or private the rights accorded to authors.
+All claims of authorship must remain with individuals who are human
+and may claim person-hood."
+
+"Only the preceding SPECIAL provision may be abridged or redacted
+as part of a mutual agreement for commercial-use between the
+author and another individual, and then only with the proviso that
+such an agreement apply to a separate and new "commercial branch"
+of this software, which still must reproduce this license (minus desired
+deletions from only the above paragraph) and full attributions in a way
+that reasonable persons familiar with development of similar works
+can understand & verify. Any part of the "commercial branch"
+license shall be invalid if when properly construed, it changes the rights
+granted to non-commercial users or any significant authors of
+non-commercial trunks or parent-branches without their individually
+expressed & recorded permission and consent."
+
+"Gross examples of changing code or documentation simply to increase
+the significance of authorship that one enjoys shall be interpreted as
+forfeiture of authorship rights that would otherwise accrue to the
+offending party. All judgements on such matters should be informed
+by an understanding of the purpose or function that the work performs.
+Arbiters of these disputes should understand the history of a work
+as well as current usage examples"
+
+Stop Stalin License by Joseph Suber CopyRIGHT (C) 2013
+
+-- you are granted full permission to use and reproduce this text --
+-- for the purpose of implementing the license descibed herein ---
+
+-- END LICENSE --
