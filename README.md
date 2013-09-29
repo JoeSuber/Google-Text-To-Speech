@@ -30,10 +30,10 @@ GoogleTextSpeaks.py -l en -s "I speak to you from outer-space" -p
 if you want to use it without holding up whatever else is happening,
 with a minimum of fuss, call via thread module from your own program:
 
-import GoogleTextSpeaks as barney
+import GoogleTextSpeaks as barney /n
 import thread
 
-txtraw = 'with the goo goo googly eyes'
+txtraw = 'with the goo goo googly eyes' /n
 thread.start_new_thread(barney.simplespeech, tuple(txtraw))
 
  I suppose you can use 'subprocess', but it takes just a tad more to launch & I saw no change.
@@ -50,8 +50,8 @@ thread.start_new_thread(barney.simplespeech, tuple(txtraw))
  I think the filesystem will always be faster than a call out to the web
 # - and you don't bother the Googly web-API as much.
 
-'open the pod-bay doors?'
-'would you like to play a game?'
+'open the pod-bay doors?' /n
+'would you like to play a game?' /n
 try not to be evil?
 
 -Joe Suber
