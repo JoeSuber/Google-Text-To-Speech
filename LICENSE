@@ -1,4 +1,3 @@
-
 Stop Stalin License:
 
 This "Stop Stalin" License is meant to both encourage open-source style
@@ -77,6 +76,17 @@ granted to non-commercial users or any significant authors of
 non-commercial trunks or parent-branches without their individually
 expressed & recorded permission and consent."
 
+"Authors who create 'commercial branch' licensed versions should make
+good-faith efforts to contact authors whose stake of authorship entitles
+them to compensation as part any concluded commercial license agreement.
+All authors should understand that such efforts are undertaken at some
+cost and justly compensate those who perform such labor from the total
+remuneration the authors in total are to receive. If it is judged that
+author-stakes below a certain threshhold cannot justify the effort of
+contact and/or funds distribution, those funds may be held in trust
+by agreed-upon parties until such time as authors come forward to claim 
+their rightful portion minus administrative overheads."
+
 "Gross examples of changing code or documentation simply to increase
 the significance of authorship that one enjoys shall be interpreted as
 forfeiture of authorship rights that would otherwise accrue to the
@@ -84,6 +94,17 @@ offending party. All judgements on such matters should be informed
 by an understanding of the purpose or function that the work performs.
 Arbiters of these disputes should understand the history of a work
 as well as current usage examples"
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Stop Stalin License by Joseph Suber CopyRIGHT (C) 2013
 
