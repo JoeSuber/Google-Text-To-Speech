@@ -2,60 +2,16 @@
 # encoding: utf-8
 
 """
-Thanks and credit for what I, Joe Suber, call GoogleTextSpeaks go to:
-
-A. initial working code, interface to API and great idea -
-    Hung Truong (http://www.hung-truong.com/blog/)
-
-B. refinement, refactor, and documentation -
-    JulienD, https://github.com/JulienD/Google-Text-To-Speech
-
-C. I added the threadable function call and local cache of .mp3 files
-    & re-wrote some french-english documentation into english-english.
-    Also added a bit to make it work in Windows.
-
-required audio package:
-
-    sudo apt-get install sox
-
-or really any command line mp3 player, the lighter the better.
-I have it working with yauap for gstreamer as well.
-and maybe:
-
-    sudo apt-get install libsox-fmt-mp3
-
-example usages:
-
-GoogleTextSpeaks.py -l en -s "I speak to you from outer-space" -p
-  - or -
-(since there is http action and at least a fraction of a second second delay)
-if you want to use it without holding up whatever else is happening,
-with a minimum of fuss, call via thread module from your own program:
-
-    import GoogleTextSpeaks as barney
-    import thread
-
-    txtraw = 'with the goo goo googly eyes'
-    thread.start_new_thread(barney.simplespeech, tuple(txtraw))
-
-# I suppose you can use 'subprocess', but it takes just a tad more to launch & I saw no change.
-# GIL or no, most of the action already takes place in a subprocess launched for the .mp3 player
-# Each text phrase refers via hash to an on-disk file-name  OR it must be
-# retrieved from the Google Translate API - either way
-# in a few milli-seconds we are able to send the  .mp3 player
-# the name of a closed .mp3 file that exists in directory /voice
-# The .mp3 is (already) saved for later use if the phrase comes up again.
-# I experimented with a database and keeping files in memory - none of it was worth the trouble
-# Just let the OS look up the name of the file. If it ever starts to matter. deal with it then
-# It hasn't yet in my app. Even without a file cache it responded in less than a half-second.
-# Even if the app has thousands of phrases cached locally for the OS to look through,
-# I think the filesystem will always be faster than a call out to the web
-# - and you don't bother the Googly web-API as much.
-
-'open the pod-bay doors?'
-'would you like to play a game?'
-try not to be evil?
-
+10-31-13
+Latest update!
+- The command line-given phrases and text files now cache properly.
+ - You can have this thing record a Tolstoy novel if you want.
+- Some small but annoying punctuation & spacing bugs have been squashed.
+- If using a text file for input it still must have some punctuation.
+- The threaded calls no longer burp text all over stdout
+****
+check README for pre-reqs, sample usages & credits
+***
 -Joe Suber
 """
 
@@ -66,30 +22,33 @@ import re
 import urllib, urllib2
 import time
 import subprocess
-from shove import Shove
-import psutil
 exitFlag = 0
 
-def main():
+def main(p='nope', exists=False):
     """
-     cmd line args parsed here, and under last section
+     cmd line args parsed here, and under __name__==__main__
     """
-    if len(sys.argv)==1:
-        # Display the help if no argument is setted.
+    if len(sys.argv) == 1:
+        # Display the help if no argument is set.
         parser.print_help()
         sys.exit(1)
 
-    args = parser.parse_args()
+    if exists:
+        #print('shortcut taken!')
+        play(p)
+    else:
+        args = parser.parse_args()
 
-    if args.file:
-        text = args.file.read()
-    if args.string:
-        text = ' '.join(map(str,args.string))
+        if args.file:
+            text = args.file.read()
+            #print('reading from {}'.format(args.file))
+            #print('writing to   {}'.format(args.output.name))
+        if args.string:
+            text = ''.join(map(str, args.string))
 
-    text_lines = convertTextAsLinesOfText(text)
-    PLAY = args.play
-    downloadAudioFile(text_lines, args.language, args.output)
-    play(args.output.name)
+        text_lines = convertTextAsLinesOfText(text)
+        downloadAudioFile(text_lines, args.language, args.output)
+        play(args.output.name)
 
 
 def simplespeech(*txtin):
@@ -115,18 +74,18 @@ def convertTextAsLinesOfText(text):
         chunks - each smaller than 100 characters.
     """
     # Sanitizes the text.
-    text = text.replace('\n','')
+    text = text.replace('\n', ' ')
     text_list = re.split('(\,|\.|\;|\:)', text)
 
     # Splits a text into chunks
     text_lines = []
     for idx, val in enumerate(text_list):
 
-        if (idx % 2 == 0):
+        if idx % 2 == 0:
             text_lines.append(val)
-        else :
+        else:
             # Combines the string + the punctuation.
-            joined_text = ''.join((text_lines.pop(),val))
+            joined_text = ''.join((text_lines.pop(), val))
 
             # Checks if the chunk still needs splitting.
             if len(joined_text) < 100:
@@ -136,7 +95,7 @@ def convertTextAsLinesOfText(text):
                 temp_string = ""
                 temp_array = []
                 for part in subparts:
-                    temp_string = temp_string + part
+                    temp_string += part
                     if len(temp_string) > 80:
                         temp_array.append(temp_string)
                         temp_string = ""
@@ -146,16 +105,18 @@ def convertTextAsLinesOfText(text):
 
     return text_lines
 
+
 def downloadAudioFile(text_lines, language, audio_file):
     """
-        Donwloads an MP3 from Google Translate.
+        Downloads an MP3 from Google Translate.
         *.mp3 content is based on text and language codes parsed
-        from commmand line or passed in via simplespeech().
+        from command line or passed in via simplespeech().
     """
+    # print(text_lines, language, audio_file)
     for idx, line in enumerate(text_lines):
         query_params = {"tl": language, "q": line, "total": len(text_lines), "idx": idx}
         url = "http://translate.google.com/translate_tts?ie=UTF-8" + "&" + unicode_urlencode(query_params)
-        headers = {"Host":"translate.google.com", "User-Agent":"Mozilla 5.10"}
+        headers = {"Host": "translate.google.com", "User-Agent": "Mozilla 5.10"}
         req = urllib2.Request(url, '', headers)
         sys.stdout.write('.')
         sys.stdout.flush()
@@ -166,9 +127,9 @@ def downloadAudioFile(text_lines, language, audio_file):
                 time.sleep(.3)
             except urllib2.HTTPError as e:
                 pass
-                #print ('%s' % e)
-
-    #print 'Saved MP3 to %s' % (audio_file.name)
+                print ('ER %s' % e)
+    # for really textless operation comment out below
+    print 'Saved MP3 to %s' % audio_file.name
     audio_file.close()
 
 
@@ -187,7 +148,7 @@ def play(filename):
     """
     if sys.platform == "linux" or sys.platform == "linux2":
         # linux
-        subprocess.call(["play", filename])
+        subprocess.call(["play", '-q', filename])
     elif sys.platform == "darwin":
         # OS X
         subprocess.call(["afplay", filename])
@@ -200,21 +161,30 @@ def play(filename):
 
 if __name__ == '__main__':
 
-    description = "Google Text To Speech."
+    description = "Google Text To Speech"
     parser = argparse.ArgumentParser(prog='GoogleTextSpeaks', description=description,
-                                     epilog='have fun')
+                                     epilog='there once was a man from nantucket...')
+
+    parser.add_argument('-l', '--language', action='store', nargs='?', help='Language to output text to', default='en')
+
+    parser.add_argument('-p', '--play', action='store_true', help='Play the speech if your computer allows it')
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-f', '--file', type=argparse.FileType('r'), help='File to read text from.')
     group.add_argument('-s', '--string', action='store', nargs='+', help='A string of text to convert to speech.')
 
-    parser.add_argument('-o','--output', action='store', nargs='?',
+    chosen = parser.parse_args()
+    if chosen.file:
+        mtext = chosen.file.read()
+        #print(mtext)
+    else:
+        mtext = chosen.string
+    #print('mtext = '.format(mtext[0]))
+    pathname = os.path.join('voice',  str(hash("".join(mtext))) + '.mp3')
+    #print('hash-made path for parser gen. fob = {}'.format(pathname))
+    parser.add_argument('-o', '--output', action='store', nargs='?',
                         help='Filename to output audio to',
                         type=argparse.FileType('w'),
-                        default='out.mp3')
-    parser.add_argument('-l','--language', action='store', nargs='?', help='Language to output text to.', default='en')
+                        default=pathname)
 
-    parser.add_argument('-p','--play', action='store_true', help='Play the speech if your computer allows it.')
-    #parser.add_argument('-c','--cache', action='store_true', help='Cache the result of the file for a later use.')
-
-    main()
+    main(p=pathname, exists=(os.path.isfile(pathname) and (os.stat(pathname).st_size > 1)))

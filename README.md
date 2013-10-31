@@ -1,5 +1,16 @@
 Google-Text-To-Speech
 =====================
+10-31-13
+update!
+- The command line-given phrases and text files now cache properly, 
+	-They are stored along with the thread-called *.mp3 in /voices.
+- You can have this thing record a Tolstoy novel if you want.
+- Some small but annoying punctuation & spacing bugs have been squashed.
+- If using a text file for input it still must have some punctuation.
+- The threaded calls no longer burp text all over stdout
+****
+
+
 Thanks and credit for what I, Joe Suber, call GoogleTextSpeaks go to:
 
 A. initial working code, interface to API and great idea -
@@ -24,14 +35,15 @@ sudo apt-get install libsox-fmt-mp3
 
 example usages:
 
-GoogleTextSpeaks.py -l en -s "I speak to you from outer-space" -p
+GoogleTextSpeaks.py -l en -s "There once was a man from Topeka" -p
 - or -
+GoogleTextSpeaks.py -l en -f "werder.txt" -p
+
 (since there is http action and at least a fraction of a second second delay)
 if you want to use it without holding up whatever else is happening,
 with a minimum of fuss, call via thread module from your own program:
 
 import GoogleTextSpeaks as barney
-
 import thread
 
 txtraw = 'with the goo goo googly eyes'
@@ -52,9 +64,6 @@ thread.start_new_thread(barney.simplespeech, tuple(txtraw))
  I think the filesystem will always be faster than a call out to the web
 # - and you don't bother the Googly web-API as much.
 
-'open the pod-bay doors?' /n
-'would you like to play a game?' /n
-try not to be evil?
 
 -Joe Suber
 """
