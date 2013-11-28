@@ -5,11 +5,10 @@
 10-31-13
 Latest update!
 - The command line-given phrases and text files now cache properly.
- - You can have this thing record a Tolstoy novel if you want.
+- You can have this thing record a Tolstoy novel... but expect to be banned.
 - Some small but annoying punctuation & spacing bugs have been squashed.
 - If using a text file for input it still must have some punctuation.
 - The threaded calls no longer burp text all over stdout
-****
 usage examples, setup, credits etc. in README of Google-Text-Speaks github repo
 -Joe Suber
 """
@@ -112,23 +111,30 @@ def downloadAudioFile(text_lines, language, audio_file):
         *.mp3 content is based on text and language codes parsed
         from command line or passed in via simplespeech().
     """
-    # print(text_lines, language, audio_file)
+    SAVE_SOUND = False
     for idx, line in enumerate(text_lines):
         query_params = {"tl": language, "q": line, "total": len(text_lines), "idx": idx}
         url = "http://translate.google.com/translate_tts?ie=UTF-8" + "&" + unicode_urlencode(query_params)
-        headers = {"Host": "translate.google.com", "User-Agent": "Mozilla 5.10"}
+        headers = {"Host": "translate.google.com", "User-Agent": "Mozilla 5.20"}
         req = urllib2.Request(url, '', headers)
         sys.stdout.write('.')
         sys.stdout.flush()
         if len(line) > 0:
             try:
                 response = urllib2.urlopen(req)
-                audio_file.write(response.read())
-                time.sleep(.3)
+                SAVE_SOUND = True
             except urllib2.HTTPError as e:
-                pass
-                print ('ER %s' % e)
-    print 'Saved MP3 to %s' % audio_file.name
+                print ('resp Error: {}'.format(e))
+        if SAVE_SOUND:
+            try:
+                audio_file.write(response.read())
+            except:
+                SAVE_SOUND = False
+                print('failed to save good response as: {}'.format(audio_file.name))
+    if SAVE_SOUND:    
+        print('Saved MP3 to {}'.format(audio_file.name))
+    if idx > 0:
+        print('it enunciates {} lines of text'.format(idx+1))
     audio_file.close()
 
 
