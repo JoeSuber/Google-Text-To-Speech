@@ -10,8 +10,7 @@ Latest update!
 - If using a text file for input it still must have some punctuation.
 - The threaded calls no longer burp text all over stdout
 ****
-check README for pre-reqs, sample usages & credits
-***
+usage examples, setup, credits etc. in README of Google-Text-Speaks github repo
 -Joe Suber
 """
 
@@ -19,7 +18,8 @@ import argparse
 import os
 import sys
 import re
-import urllib, urllib2
+import urllib
+import urllib2
 import time
 import subprocess
 exitFlag = 0
@@ -128,7 +128,6 @@ def downloadAudioFile(text_lines, language, audio_file):
             except urllib2.HTTPError as e:
                 pass
                 print ('ER %s' % e)
-    # for really textless operation comment out below
     print 'Saved MP3 to %s' % audio_file.name
     audio_file.close()
 
@@ -175,11 +174,26 @@ if __name__ == '__main__':
 
     chosen = parser.parse_args()
     if chosen.file:
-        mtext = chosen.file.read()
+        try:
+            mtext = chosen.file.read()
+        except:
+            print("When using option '-f' or '--file' remember to designate the full path")
+            print("pointing to a plain text file (that surely exists) in quotes. Exiting now.")
+            exit(0)
         #print(mtext)
     else:
         mtext = chosen.string
     #print('mtext = '.format(mtext[0]))
+    if not os.path.isdir(os.path.join(os.getcwd(), 'voice')):
+        try:
+            os.mkdir(os.path.join(os.getcwd(), 'voice'))
+        except:
+            print("_-_-_  I had trouble (likely permission trouble) making the 'voice' directory")
+            print("-_-_-  where I would like to store all the *.mp3 files of various phrases")
+            print("_-_-_  current working dir: {}".format(os.getcwd()))
+            print("-_-_-  I'll exit now so you can straighten things out by getting permission or changing working dir")
+
+            exit(0)
     pathname = os.path.join('voice',  str(hash("".join(mtext))) + '.mp3')
     #print('hash-made path for parser gen. fob = {}'.format(pathname))
     parser.add_argument('-o', '--output', action='store', nargs='?',
@@ -187,4 +201,6 @@ if __name__ == '__main__':
                         type=argparse.FileType('w'),
                         default=pathname)
 
+    #parser.add_argument('-c','--cache', action='store_true', help='Cache the result of the file for a later use.')
     main(p=pathname, exists=(os.path.isfile(pathname) and (os.stat(pathname).st_size > 1)))
+
