@@ -25,13 +25,12 @@ Also added a bit to make it work in Windows.
 
 required audio package:
 
-sudo apt-get install sox
+- sudo apt-get install sox
 
-or really any command line mp3 player, the lighter the better.
-I have it working with yauap for gstreamer as well.
-and maybe:
+- sudo apt-get install libsox-fmt-mp3
 
-sudo apt-get install libsox-fmt-mp3
+...or really any command line mp3 player, the lighter the better.
+I have had it working with yauap for gstreamer as well, though not currently coded for that.
 
 example usages:
 
